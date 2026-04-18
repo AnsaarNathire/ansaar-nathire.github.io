@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nathire Ansaar — Software Engineer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Mono:wght@300;400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #0d0d0d;
+      --bg2:      #111111;
+      --bg3:      #181818;
+      --border:   #222222;
+      --accent:   #c8a96e;
+      --accent2:  #e8c98e;
+      --text:     #e8e6e0;
+      --muted:    #888880;
+      --faint:    #444440;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 4rem;
+      background: rgba(13,13,13,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.25s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 0 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    #hero::before {
+      content: '';
+      position: absolute; top: -20%; right: -10%;
+      width: 55vw; height: 110vh;
+      background: radial-gradient(ellipse at 60% 40%, rgba(200,169,110,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 6rem;
+      align-items: center;
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .hero-text { animation: fadeUp 0.9s ease both; }
+    .hero-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.2rem;
+    }
+    .hero-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 5.5vw, 5rem);
+      font-weight: 900;
+      line-height: 1.05;
+      margin-bottom: 0.6rem;
+      color: var(--text);
+    }
+    .hero-title {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.9rem;
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      margin-bottom: 1.8rem;
+    }
+    .hero-about {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 500px;
+      line-height: 1.8;
+      margin-bottom: 2.5rem;
+    }
+    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--accent);
+      color: #0d0d0d;
+      padding: 0.75rem 2rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { background: var(--accent2); transform: translateY(-2px); }
+    .btn-outline {
+      border: 1px solid var(--faint);
+      color: var(--muted);
+      padding: 0.75rem 2rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s, transform 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+    .hero-photo {
+      animation: fadeUp 0.9s 0.2s ease both;
+      flex-shrink: 0;
+    }
+    .hero-photo img {
+      width: 280px;
+      height: 380px;
+      object-fit: cover;
+      object-position: center top;
+      filter: grayscale(20%) contrast(1.05);
+      border: 1px solid var(--border);
+    }
+    .hero-photo-frame {
+      position: relative;
+      display: inline-block;
+    }
+    .hero-photo-frame::after {
+      content: '';
+      position: absolute;
+      top: 14px; left: 14px;
+      width: 100%; height: 100%;
+      border: 1px solid var(--accent);
+      opacity: 0.35;
+      z-index: -1;
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      padding: 6rem 4rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 3rem;
+      position: relative;
+      padding-bottom: 1rem;
+    }
+    .section-title::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0;
+      width: 48px; height: 1px;
+      background: var(--accent);
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      width: 100%; height: 1px;
+      background: var(--border);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* ── EXPERIENCE ── */
+    .experience-list { display: flex; flex-direction: column; gap: 2.8rem; }
+    .exp-item {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 2rem;
+      padding-bottom: 2.8rem;
+      border-bottom: 1px solid var(--border);
+      animation: fadeUp 0.6s ease both;
+    }
+    .exp-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .exp-date {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      padding-top: 0.2rem;
+    }
+    .exp-content {}
+    .exp-role {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.2rem;
+    }
+    .exp-company {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+    }
+    .exp-project {
+      margin-bottom: 1rem;
+    }
+    .exp-project-name {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 0.25rem;
+    }
+    .exp-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 0.5rem;
+    }
+    .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.5rem; }
+    .tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      padding: 0.25rem 0.65rem;
+      border: 1px solid var(--faint);
+      color: var(--muted);
+    }
+
+    /* ── SKILLS ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+    .skill-cell {
+      background: var(--bg);
+      padding: 1.2rem 1.4rem;
+      transition: background 0.2s;
+    }
+    .skill-cell:hover { background: var(--bg3); }
+    .skill-name {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--text);
+      letter-spacing: 0.06em;
+    }
+    .skill-dot {
+      display: inline-block;
+      width: 5px; height: 5px;
+      background: var(--accent);
+      border-radius: 50%;
+      margin-right: 0.6rem;
+      vertical-align: middle;
+    }
+
+    /* ── EDUCATION ── */
+    .edu-item {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+    .edu-year {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      padding-top: 0.15rem;
+    }
+    .edu-degree {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.2rem;
+    }
+    .edu-institution {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+
+    /* ── CONTACT ── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+    .contact-card {
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      transition: border-color 0.25s, background 0.25s;
+      text-decoration: none;
+      display: block;
+    }
+    .contact-card:hover { border-color: var(--accent); background: var(--bg3); }
+    .contact-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+    .contact-value {
+      font-size: 0.9rem;
+      color: var(--text);
+      word-break: break-all;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--faint);
+      letter-spacing: 0.1em;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.2rem; }
+      #hero { padding: 6rem 1.5rem 3rem; }
+      .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .hero-photo { order: -1; text-align: center; }
+      .hero-photo img { width: 180px; height: 240px; }
+      section { padding: 4rem 1.5rem; }
+      .exp-item, .edu-item { grid-template-columns: 1fr; gap: 0.5rem; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#hero">N.A.</a>
+  <ul class="nav-links">
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero" style="padding-top:0; max-width:none;">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <p class="hero-eyebrow">Portfolio</p>
+      <h1 class="hero-name">Nathire<br>Ansaar</h1>
+      <p class="hero-title">Software Engineer</p>
+      <p class="hero-about">
+        Driven and passionate Software Engineer with hands-on professional experience building and maintaining backend systems in fast-paced, client-facing environments. Committed to clean code, continuous learning, and delivering reliable, well-structured solutions.
+      </p>
+      <div class="hero-ctas">
+        <a href="#experience" class="btn-primary">View Experience</a>
+        <a href="#contact" class="btn-outline">Get in Touch</a>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <div class="hero-photo-frame">
+        <img src="photo.jpg" alt="Nathire Ansaar" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <p class="section-label">Career</p>
+  <h2 class="section-title">Work Experience</h2>
+  <div class="experience-list">
+
+    <div class="exp-item">
+      <div class="exp-date">Dec 2024 — Present</div>
+      <div class="exp-content">
+        <p class="exp-role">Software Engineer</p>
+        <p class="exp-company">RAPP (Omnicom Group)</p>
+
+        <div class="exp-project">
+          <p class="exp-project-name">Mercedes-Benz UK Online-Sales-Platform (MB-OSP)</p>
+          <p class="exp-desc">Working on backend systems for a large-scale automotive client. Involved in building and maintaining APIs and data management platforms, collaborating closely within an agile team to deliver features across multiple interconnected services.</p>
+          <div class="tags">
+            <span class="tag">.NET 10</span>
+            <span class="tag">C#</span>
+            <span class="tag">AWS</span>
+            <span class="tag">ServiceStack</span>
+            <span class="tag">MySQL</span>
+          </div>
+        </div>
+
+        <div class="exp-project">
+          <p class="exp-project-name">RAPP.COM</p>
+          <p class="exp-desc">Worked on the RAPP.COM platform, a CMS-driven web project built with Umbraco on a .NET stack. Gained experience integrating backend .NET services with a content management system and contributing to a production web environment.</p>
+          <div class="tags">
+            <span class="tag">.NET</span>
+            <span class="tag">C#</span>
+            <span class="tag">Umbraco CMS</span>
+          </div>
+        </div>
+
+        <div class="exp-project">
+          <p class="exp-project-name">Mobile Wallet</p>
+          <p class="exp-desc">Contributed to a Mobile Wallet platform as part of my first professional project. Worked with .NET technologies within a structured, layered architecture, focusing on clean code principles, best practices, and understanding real-world backend development workflows.</p>
+          <div class="tags">
+            <span class="tag">.NET</span>
+            <span class="tag">C#</span>
+            <span class="tag">SQL</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-date">Oct 2023 — Dec 2023</div>
+      <div class="exp-content">
+        <p class="exp-role">Intern</p>
+        <p class="exp-company">Versusmind Indian Ocean — The Business Exchange, 1 Cybercity</p>
+        <p class="exp-desc">Worked on a project using the ASP.NET technology stack. Objectives were to apply .NET principles and guidelines to develop a website.</p>
+        <div class="tags">
+          <span class="tag">ASP.NET</span>
+          <span class="tag">C#</span>
+          <span class="tag">SQL Server</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <p class="section-label">Technologies</p>
+  <h2 class="section-title">Skills & Learnings</h2>
+  <div class="skills-grid">
+    <div class="skill-cell"><span class="skill-dot"></span><span class="skill-name">.NET 10 / C#</span></div>
+    <div class="skill-cell"><span class="skill-dot"></span><span class="skill-name">AWS</span></div>
+    <div class="skill-cell"><span class="skill-dot"></span><span class="skill-name">ServiceStack</span></div>
+    <div class="skill-cell"><span class="skill-dot"></span><span class="skill-name">MySQL</span></div>
+    <div class="skill-cell"><span class="skill-dot"></span><span class="skill-name">Umbraco CMS</span></div>
+    <div class="skill-cell"><span class="skill-dot"></span><span class="skill-name">RESTful API</span></div>
+    <div class="skill-cell"><span class="skill-dot"></span><span class="skill-name">Clean Code</span></div>
+    <div class="skill-cell"><span class="skill-dot"></span><span class="skill-name">Clean Architecture</span></div>
+    <div class="skill-cell"><span class="skill-dot"></span><span class="skill-name">.NET Core</span></div>
+    <div class="skill-cell"><span class="skill-dot"></span><span class="skill-name">.NET MVC</span></div>
+    <div class="skill-cell"><span class="skill-dot"></span><span class="skill-name">SQL Server</span></div>
+    <div class="skill-cell"><span class="skill-dot"></span><span class="skill-name">JavaScript</span></div>
+    <div class="skill-cell"><span class="skill-dot"></span><span class="skill-name">HTML / CSS</span></div>
+    <div class="skill-cell"><span class="skill-dot"></span><span class="skill-name">Java</span></div>
+    <div class="skill-cell"><span class="skill-dot"></span><span class="skill-name">PHP</span></div>
+    <div class="skill-cell"><span class="skill-dot"></span><span class="skill-name">Git</span></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EDUCATION -->
+<section id="education">
+  <p class="section-label">Academic</p>
+  <h2 class="section-title">Education</h2>
+  <div class="edu-item">
+    <div class="edu-year">2021 — 2024</div>
+    <div>
+      <p class="edu-degree">BSc (Hons) Software Engineering</p>
+      <p class="edu-institution">University of Mauritius</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="section-label">Let's Connect</p>
+  <h2 class="section-title">Contact</h2>
+  <div class="contact-grid">
+    <a href="mailto:ansaarnathire907@gmail.com" class="contact-card">
+      <p class="contact-label">Email</p>
+      <p class="contact-value">ansaarnathire907@gmail.com</p>
+    </a>
+    <a href="tel:+2305473240" class="contact-card">
+      <p class="contact-label">Phone</p>
+      <p class="contact-value">(+230) 5 473 9240</p>
+    </a>
+    <a href="https://www.linkedin.com/in/ansaar-nathire" target="_blank" class="contact-card">
+      <p class="contact-label">LinkedIn</p>
+      <p class="contact-value">linkedin.com/in/ansaar-nathire</p>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2025 Nathire Ansaar</span>
+  <span>Built with HTML · CSS · JS</span>
+</footer>
+
+</body>
+</html>
